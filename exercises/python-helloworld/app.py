@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import jsonify
+from flask import jsonify, json
 # from flask_api import status
 app = Flask(__name__)
 
@@ -9,19 +9,30 @@ def hello():
 
 @app.route('/status')
 def health_check():
-    health_check = {'result': 'OK - Healthy'}
-    profile = {'user' : 'admin'}
-    return jsonify(profile,health_check)
+    response = [
+        {'user': 'admin'},
+        {'result': 'OK - Healthy'}
+    ]
+    return jsonify(response)
     # return health_check, status.HTTP_200_OK
 
 @app.route('/metrics', methods=['GET'])
 def metrics():
 
-    response = [
-        {'user' : 'admin'},
-        'data: { UserCount: 140, UserCountActive: 23}'
-    ]
-    return jsonify(response)
+    response = app.response_class(
+        response=json.dumps({
+            'status':'success',
+            'code': 0,
+            'data': {
+                'UserCount': 140,
+                'UserCountActive': 23
+            }
+        }),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
 
 
 if __name__ == "__main__":
