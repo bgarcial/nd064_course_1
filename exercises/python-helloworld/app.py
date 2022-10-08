@@ -3,9 +3,11 @@ from flask import jsonify, json
 # from flask_api import status
 app = Flask(__name__)
 
+
 @app.route("/")
 def hello():
     return "Hello World!"
+
 
 @app.route('/status')
 def health_check():
