@@ -1,3 +1,4 @@
+import pytest
 from flask import Flask
 from flask import jsonify, json
 # from flask_api import status
@@ -9,6 +10,7 @@ def hello():
     return "Hello World!"
 
 
+# @pytest.fixture
 @app.route('/status')
 def health_check():
     response = [
