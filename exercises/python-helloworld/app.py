@@ -1,24 +1,21 @@
 import pytest
+import ipdb
 from flask import Flask
 from flask import jsonify, json
 # from flask_api import status
 app = Flask(__name__)
 
 
-@app.route("/")
-def hello():
-    return "Hello World!"
-
-
-# @pytest.fixture
 @app.route('/status')
 def health_check():
     response = [
         {'user': 'admin'},
         {'result': 'OK - Healthy'}
     ]
+    ipdb.set_trace()
+    
     return jsonify(response)
-    # return health_check, status.HTTP_200_OK
+
 
 @app.route('/metrics', methods=['GET'])
 def metrics():
@@ -38,6 +35,10 @@ def metrics():
 
     return response
 
+@app.route("/")
+def hello():
+    return "Hello World!"
+    
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
