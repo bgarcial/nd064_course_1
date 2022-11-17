@@ -7,12 +7,13 @@ app = Flask(__name__)
 
 
 @app.route('/status')
+@pytest.fixture
 def health_check():
     response = [
         {'user': 'admin'},
         {'result': 'OK - Healthy'}
     ]
-    ipdb.set_trace()
+    # ipdb.set_trace()
     
     return jsonify(response)
 
